@@ -1,38 +1,49 @@
 var scotchTodo = angular.module('scotchTodo', []);
 
+scotchTodo.controller('mainController',['$scope','$http',function($scope,$http) {
+    var Input = element(by.model('formData.text'))
+    $scope.formData = {};
 
-function mainController($scope,$http) {
-  $scope.formData = {};
-
-  $http.get('/api/todos')
-    .success(function(data) {
-      $scope.todos = data;
-      console.log(data);
+    $http({
+      method: 'GET',
+      url: '/api/todos'
     })
-    .error(function(data) {
-      console.log('Error: ' + data);
-    });
-
-  $scope.createTodo = function() {
-    $http.post('/api/todos', $scope.formData)
-    .success(function(data) {
-      $scope.formData = {}; //clear the form to get ready for a new form
-      $scope.todos = data;
-      console.log(data);
+    .then(function successCallback(response) {
+      $scope.todos = response.data;
+      console.log(response.data);
+    }, function errorCallback(response) {
+      console.log('Error: ' + response.data);
     })
-    .error(function(data) {
-      console.log('Error: ' + data);
-    });
-  };
 
-  $scope.deleteTodo = function(id) {
-    $http.delete('/api/todos/'+id)
-      .success(function(data) {
-        $scope.todos = data;
-        console.log(data);
+
+
+    $scope.createTodo = function() {
+      $http(
+      {
+        method:'POST',
+        data: Input,
+        url:'/api/todos'
       })
-      .error(function(data) {
-        console.log('Error: ' + data);
-      });
-  };
-};
+      .then(function successCallback(response) {
+        console.log(response.data);
+        $scope.formData = {}; //clear the form to get ready for a new form
+        $scope.todos = response.data;
+      }, function errorCallback(response) {
+        console.log('Error: ' + response.data);
+      })
+    };
+
+    $scope.deleteTodo = function(id) {
+      $http
+      (
+      {
+        method: 'DELETE',
+        url: '/api/todos'+id
+      })
+      .then(function successCallback(response) {
+            $scope.todos = response.data;
+      }, function errorCallback(response) {
+        console.log('Error: ' + response.data);
+      })
+    };
+}])
