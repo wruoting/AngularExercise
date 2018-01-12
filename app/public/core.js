@@ -20,12 +20,12 @@ scotchTodo.controller('mainController',['$scope','$http',function($scope,$http) 
       $http({
         url:'/api/todos',
         method:'POST',
-        data: {id:$scope.inputData.text}
+        data: {id:$scope.inputData}
       })
       .then(function successCallback(response) {
         console.log(response.data);
         $scope.formData = {}; //clear the form to get ready for a new form
-        $scope.todos = $scope.inputData.text;
+        $scope.todos = $scope.inputData; //shove this in the form
       }, function errorCallback(response) {
         console.log('Error: ' + $scope.inputData);
       })

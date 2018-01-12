@@ -43,8 +43,8 @@ app.get('/api/todos',function(req,res) {
 app.post('/api/todos',function(req,res) {
   // saves document to db
   Todo.create({
-      text: req.body.text,
-      done: false
+      text: req.id,
+      done: true
   }, function(err,todo) {
     if(err)
       res.json(err);
