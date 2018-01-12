@@ -51,10 +51,10 @@ app.post('/api/todos',function(req,res) {
       //get and return all the todos after you create another todo
   })
   // //query db
-  Todo.find(function(err,todos) {
+  Todo.find(function(err,todo) {
     if(err)
       res.send(err)
-    res.json(todos)
+    res.json(todo)
   })
 })
 

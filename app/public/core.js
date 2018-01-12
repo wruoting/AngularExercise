@@ -17,7 +17,6 @@ scotchTodo.controller('mainController',['$scope','$http',function($scope,$http) 
 
 
     $scope.createTodo = function(id) {
-      console.log({id:$scope.inputData.text})
       $http({
         url:'/api/todos',
         method:'POST',
