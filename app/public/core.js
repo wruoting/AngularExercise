@@ -1,7 +1,7 @@
 var scotchTodo = angular.module('scotchTodo', []);
 
 scotchTodo.controller('mainController',['$scope','$http',function($scope,$http) {
-    var Input = element(by.model('formData.text'))
+
     $scope.formData = {};
 
     $http({
@@ -16,29 +16,28 @@ scotchTodo.controller('mainController',['$scope','$http',function($scope,$http) 
     })
 
 
-
-    $scope.createTodo = function() {
+    $scope.createTodo = function(id) {
+      console.log({id:$scope.inputData})
       $http(
       {
+        url:'/api/todos',
         method:'POST',
-        data: Input,
-        url:'/api/todos'
+        data: {id:$scope.inputData}
       })
       .then(function successCallback(response) {
         console.log(response.data);
         $scope.formData = {}; //clear the form to get ready for a new form
-        $scope.todos = response.data;
+        $scope.todos = $scope.inputData;
       }, function errorCallback(response) {
-        console.log('Error: ' + response.data);
+        console.log('Error: ' + $scope.inputData);
       })
     };
 
     $scope.deleteTodo = function(id) {
       $http
-      (
-      {
+      ({
         method: 'DELETE',
-        url: '/api/todos'+id
+        url: '/api/todos/' + id
       })
       .then(function successCallback(response) {
             $scope.todos = response.data;

@@ -32,7 +32,7 @@ var Todo = mongoose.model('Todo', {text:String}) //this defines a name and a sch
 //req is the object that has properties of the request query string, paramaters, body, HTTP headers, etc.
 //res is the object that represents the HTTP response
 app.get('/api/todos',function(req,res) {
-  //use mongoose to get all the todos in the db
+  // //use mongoose to get all the todos in the db
   Todo.find(function(err,todos) {
     if(err)
       res.send(err)
@@ -40,9 +40,9 @@ app.get('/api/todos',function(req,res) {
   })
 })
 
-app.post('api/todos',function(req,res) {
-  //saves document to db
-  //
+app.post('/api/todos',function(req,res) {
+  // saves document to db
+
   Todo.create({
       text: req.body.text,
       done:false
@@ -52,7 +52,7 @@ app.post('api/todos',function(req,res) {
       //get and return all the todos after you create another todo
 
   })
-  //query db
+  // //query db
   Todo.find(function(err,todos) {
     if(err)
       res.send(err)
@@ -60,7 +60,7 @@ app.post('api/todos',function(req,res) {
   })
 })
 
-app.delete('/api/todo/:todo_id',function(req,res) {
+app.delete('/api/todos/:todo_id',function(req,res) {
   Todo.remove({
       _id : req.params.todo_id
   }, function(err, todo) {
