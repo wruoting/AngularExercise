@@ -42,15 +42,13 @@ app.get('/api/todos',function(req,res) {
 
 app.post('/api/todos',function(req,res) {
   // saves document to db
-
   Todo.create({
       text: req.body.text,
-      done:false
+      done: false
   }, function(err,todo) {
     if(err)
-      res.send(err);
+      res.json(err);
       //get and return all the todos after you create another todo
-
   })
   // //query db
   Todo.find(function(err,todos) {

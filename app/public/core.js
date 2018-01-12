@@ -17,25 +17,23 @@ scotchTodo.controller('mainController',['$scope','$http',function($scope,$http) 
 
 
     $scope.createTodo = function(id) {
-      console.log({id:$scope.inputData})
-      $http(
-      {
+      console.log({id:$scope.inputData.text})
+      $http({
         url:'/api/todos',
         method:'POST',
-        data: {id:$scope.inputData}
+        data: {id:$scope.inputData.text}
       })
       .then(function successCallback(response) {
         console.log(response.data);
         $scope.formData = {}; //clear the form to get ready for a new form
-        $scope.todos = $scope.inputData;
+        $scope.todos = $scope.inputData.text;
       }, function errorCallback(response) {
         console.log('Error: ' + $scope.inputData);
       })
     };
 
     $scope.deleteTodo = function(id) {
-      $http
-      ({
+      $http({
         method: 'DELETE',
         url: '/api/todos/' + id
       })
