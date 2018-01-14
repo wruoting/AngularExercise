@@ -1,8 +1,5 @@
-angular.module('DataServices', [])
 
-	// super simple service
-	// each function returns a promise object
-	.factory('HTTP_Request', ['$http',function($http) {
+var HTTP_Request = function ($http) {
 		return {
 			get : function() {
 				return $http.get('/api/data');
@@ -14,4 +11,10 @@ angular.module('DataServices', [])
 				return $http.delete('/api/data/' + id);
 			}
 		}
-	}]);
+	};
+HTTP_Request.$inject = ['$http']
+
+angular.module('DataServices', [])
+		// super simple service
+		// each function returns a promise object
+		.factory('HTTP_Request', HTTP_Request)
