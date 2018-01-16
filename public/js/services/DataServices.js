@@ -3,7 +3,7 @@ angular.module('DataServices', [])
 		// each function returns a promise object
 		.factory('HTTP_Request', HTTP_Request)
 
-
+		HTTP_Request.$inject = ['$http']
 		function HTTP_Request($http) {
 				return {
 					get : function() {
@@ -17,5 +17,3 @@ angular.module('DataServices', [])
 					}
 				}
 			};
-
-			HTTP_Request.$inject = ['$http']
